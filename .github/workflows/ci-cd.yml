@@ -80,10 +80,9 @@ jobs:
 
       - name: Build and push backend Docker image
         run: |
-          docker buildx build --platform linux/amd64 -t ${{ secrets.DOCKER_USERNAME }}/backend:latest ./backend --push
+          docker buildx build --platform linux/amd64 -t ${{ secrets.DOCKER_USERNAME }}/backend:latest --push ./backend
 
       - name: Build and push frontend Docker image
         run: |
-          docker buildx build --platform linux/amd64 -t ${{ secrets.DOCKER_USERNAME }}/frontend:latest ./frontend --push
+          docker buildx build --platform linux/amd64 -t ${{ secrets.DOCKER_USERNAME }}/frontend:latest --push ./frontend
 
-      
