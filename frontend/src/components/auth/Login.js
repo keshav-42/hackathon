@@ -2,25 +2,24 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Button, TextField, Typography, Container, Paper } from '@mui/material';
 import axios from 'axios';
+import { useSnackbar } from 'notistack';
 
 const Login = () => {
-  const [credentials, setCredentials] = useState({ username: '', password: '' });
-  const [error, setError] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
-
-  const handleChange = (e) => {
-    setCredentials({ ...credentials, [e.target.name]: e.target.value });
-  };
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/login', credentials);
+      const response = await axios.post('http://localhost:5000/api/login', { username, password });
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
+      enqueueSnackbar('Login successful', { variant: 'success' });
       navigate('/notes');
     } catch (error) {
-      setError(error.response?.data?.error || 'An error occurred during login');
+      enqueueSnackbar(error.response?.data?.error || 'An error occurred during login', { variant: 'error' });
     }
   };
 
@@ -38,11 +37,6 @@ const Login = () => {
           <Typography component="h1" variant="h5" align="center" gutterBottom>
             Login
           </Typography>
-          {error && (
-            <Typography color="error" align="center" gutterBottom>
-              {error}
-            </Typography>
-          )}
           <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
             <TextField
               margin="normal"
@@ -53,8 +47,8 @@ const Login = () => {
               name="username"
               autoComplete="username"
               autoFocus
-              value={credentials.username}
-              onChange={handleChange}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
             <TextField
               margin="normal"
@@ -65,8 +59,8 @@ const Login = () => {
               type="password"
               id="password"
               autoComplete="current-password"
-              value={credentials.password}
-              onChange={handleChange}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <Button
               type="submit"
