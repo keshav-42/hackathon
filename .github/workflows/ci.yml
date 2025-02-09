@@ -16,9 +16,9 @@ jobs:
       postgres:
         image: postgres:14
         env:
-          POSTGRES_USER: postgres
+          POSTGRES_USER: user
           POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: notesdb
+          POSTGRES_DB: mydb
         ports:
           - 5432:5432
         options: >-
@@ -28,9 +28,9 @@ jobs:
           --health-retries 5
 
     env:
-      DB_USER: postgres
+      DB_USER: user
       DB_HOST: localhost
-      DB_NAME: notesdb
+      DB_NAME: mydb
       DB_PASSWORD: postgres
       DB_PORT: 5432
       JWT_SECRET: your-jwt-secret
