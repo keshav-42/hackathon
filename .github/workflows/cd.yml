@@ -1,0 +1,23 @@
+name: CD Pipeline
+
+on:
+  workflow_run:
+    workflows: ["CI Pipeline"]
+    types:
+      - completed
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      # Pull Latest Images
+      - name: Pull Docker Images
+        run: sudo docker-compose-run pull
+
+      # Stop and Remove Old Containers
+      - name: Stop and Remove Old Containers
+        run: sudo docker-compose-run down || true
+
+      # Start New Containers
+      - name: Start New Containers
+        run: sudo docker-compose-run up -d
