@@ -13,15 +13,15 @@ jobs:
        # Step 1: Checkout Code
       - name: Checkout Code
         uses: actions/checkout@v3
-        
+
       # Pull Latest Images
       - name: Pull Docker Images
-        run: sudo docker-compose-run pull
+        run: sudo -f docker-compose-run pull
 
       # Stop and Remove Old Containers
       - name: Stop and Remove Old Containers
-        run: sudo docker-compose-run down || true
+        run: sudo -f docker-compose-run down || true
 
       # Start New Containers
       - name: Start New Containers
-        run: sudo docker-compose-run up -d
+        run: sudo -f docker-compose-run up -d
