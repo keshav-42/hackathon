@@ -29,7 +29,7 @@ jobs:
 
     env:
       DB_USER: user
-      DB_HOST: localhost
+      DB_HOST: db
       DB_NAME: mydb
       DB_PASSWORD: postgres
       DB_PORT: 5432
