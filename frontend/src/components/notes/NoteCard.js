@@ -12,9 +12,10 @@ const NoteCard = ({ note, onEdit, onDelete }) => {
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {note.content}
+
         </Typography>
         <Typography variant="caption" color="text.secondary" sx={{ mt: 2, display: 'block' }}>
-          Last updated: {new Date(note.updated_at).toLocaleString()}
+          Last updated new: {new Date(note.updated_at).toLocaleString()}
         </Typography>
       </CardContent>
       <CardActions>
